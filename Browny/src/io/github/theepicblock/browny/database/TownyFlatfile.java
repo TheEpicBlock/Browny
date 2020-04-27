@@ -24,8 +24,8 @@ public class TownyFlatfile extends Database {
 	private String path;
 	final String FS = File.separator;
 	
-	public TownyFlatfile(String path, BrownyConfig fixConfig) {
-		super(fixConfig);
+	public TownyFlatfile(String path, BrownyConfig fixConfig, int plotSize) {
+		super(fixConfig, plotSize);
 		this.path = path;
 		
 		BrownyMain.logGeneral("Initializing FlatFile DataBase at path " + path);

@@ -18,11 +18,14 @@ public abstract class Database {
 	 * Config used to fix any missing values
 	 */
 	BrownyConfig fixConfig;
+	int plotSize;
+	
 	/**
 	 * @param config config used to fix any missing values.
 	 */
-	Database(BrownyConfig fixConfig) {
+	Database(BrownyConfig fixConfig, int plotSize) {
 		this.fixConfig = fixConfig;
+		this.plotSize = plotSize;
 	}
 	
 	/**
