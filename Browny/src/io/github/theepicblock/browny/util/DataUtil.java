@@ -2,20 +2,13 @@ package io.github.theepicblock.browny.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.stream.Stream;
-
 import io.github.theepicblock.browny.BrownyMain;
-import io.github.theepicblock.browny.storage.datatypes.World;
 
 public class DataUtil {
 	
@@ -53,8 +46,7 @@ public class DataUtil {
 			props.put(Key, Object);
 		});
 		
-		try {
-			FileOutputStream stream = new FileOutputStream(file);
+		try (FileOutputStream stream = new FileOutputStream(file);) {
 			props.store(new OutputStreamWriter(null, StandardCharsets.UTF_8), "");
 		} catch (Exception e) {
 			BrownyMain.logError("Error whilst writing to '"+file.getAbsolutePath()+"'");

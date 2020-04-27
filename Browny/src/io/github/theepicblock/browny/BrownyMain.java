@@ -1,14 +1,11 @@
 package io.github.theepicblock.browny;
 
-import java.io.File;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.database.Database;
-import io.github.theepicblock.browny.database.TownyFlatfile;
 import io.github.theepicblock.browny.storage.CacheManager;
 
 public class BrownyMain extends JavaPlugin {

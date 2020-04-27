@@ -1,7 +1,5 @@
 package io.github.theepicblock.browny.config;
 
-import io.github.theepicblock.browny.storage.interfaces.Fixable;
-
 /**
  * Every instance defines a level of town
  * Each level has different stats, which level a town has is determined by the amount of residents

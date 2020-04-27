@@ -46,7 +46,7 @@ public class TownyFlatfile extends Database {
 
 	@Override
 	public List<World> getWorlds() {
-		File worldFile = getOrCreateFile("data"+FS+"worlds.txt");
+		File worldFile = getOrCreateFile("worlds.txt");
 		List<World> returnValue = new ArrayList<World>();
 		
 		

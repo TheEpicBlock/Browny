@@ -1,7 +1,5 @@
 package io.github.theepicblock.browny.storage.datatypes;
 
-import java.util.UUID;
-
 import io.github.theepicblock.browny.BrownyMain;
 import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.config.TownLevel;
@@ -23,23 +21,18 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 		this.taxes = taxes;
 		this.plotPrices = data;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.dirty = true;
-		this.name = name;
-	}
-
+	
 	@Override
 	public void Save(Database db) {
 		db.saveTown(this);
 	}
 
-	public String getUUID() {
-		return UUID;
+	//Helper methods to get some values quickly
+	/**
+	 * @return the level that this town has
+	 */
+	public TownLevel getLevel() {
+		return BrownyMain.getBrownyConfig().getLevelByNumberOfResidents(this.getAmountOfResidents());
 	}
 	
 	/**
@@ -50,13 +43,24 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 		return 0;
 	}
 	
-	/**
-	 * @return the level that this town has
-	 */
-	public TownLevel getLevel() {
-		return BrownyMain.getBrownyConfig().getLevelByNumberOfResidents(this.getAmountOfResidents());
+	//Getters and setters
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.dirty = true;
+		this.name = name;
+	}
+	
+	public PlotPrices getPlotPrices() {
+		return plotPrices;
+	}
+
+	public String getUUID() {
+		return UUID;
+	}
+	
 	@Override
 	public void TryFix(BrownyConfig config) {
 		if (UUID == null) {
@@ -92,12 +96,12 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 	 * @author TheEpicBlock_TEB
 	 */
 	public static class PlotPrices implements Fixable{
-		public double plotPrice;
-		public double plotTax;
-		public double commercialPlotPrice;
-		public double commercialPlotTax;
-		public double embassyPlotPrice;
-		public double embassyPlotTax;
+		private double plotPrice;
+		private double plotTax;
+		private double commercialPlotPrice;
+		private double commercialPlotTax;
+		private double embassyPlotPrice;
+		private double embassyPlotTax;
 		
 		public Boolean dirty;
 		
@@ -139,6 +143,60 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 				embassyPlotTax = config.defaultPlotPrices.embassyPlotTax;
 				dirty = true;
 			}
+		}
+
+		public double getPlotPrice() {
+			return plotPrice;
+		}
+
+		public double getPlotTax() {
+			return plotTax;
+		}
+
+		public double getCommercialPlotPrice() {
+			return commercialPlotPrice;
+		}
+
+		public double getCommercialPlotTax() {
+			return commercialPlotTax;
+		}
+
+		public double getEmbassyPlotPrice() {
+			return embassyPlotPrice;
+		}
+
+		public double getEmbassyPlotTax() {
+			return embassyPlotTax;
+		}
+
+		public void setPlotPrice(double plotPrice) {
+			this.plotPrice = plotPrice;
+			this.dirty = true;
+		}
+
+		public void setPlotTax(double plotTax) {
+			this.plotTax = plotTax;
+			this.dirty = true;
+		}
+
+		public void setCommercialPlotPrice(double commercialPlotPrice) {
+			this.commercialPlotPrice = commercialPlotPrice;
+			this.dirty = true;
+		}
+
+		public void setCommercialPlotTax(double commercialPlotTax) {
+			this.commercialPlotTax = commercialPlotTax;
+			this.dirty = true;
+		}
+
+		public void setEmbassyPlotPrice(double embassyPlotPrice) {
+			this.embassyPlotPrice = embassyPlotPrice;
+			this.dirty = true;
+		}
+
+		public void setEmbassyPlotTax(double embassyPlotTax) {
+			this.embassyPlotTax = embassyPlotTax;
+			this.dirty = true;
 		}
 	}
 }

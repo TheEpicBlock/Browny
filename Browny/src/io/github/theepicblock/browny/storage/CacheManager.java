@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.github.theepicblock.browny.BrownyMain;
 import io.github.theepicblock.browny.database.Database;
+import io.github.theepicblock.browny.storage.datatypes.Plot;
 import io.github.theepicblock.browny.storage.datatypes.Town;
 import io.github.theepicblock.browny.storage.datatypes.World;
 
@@ -32,7 +33,5 @@ public class CacheManager {
 			} else {
 				BrownyMain.logError("No worlds detected!! Please add worlds if you want Browny to actually do something");
 			}
-		
-		
 	}
 }
