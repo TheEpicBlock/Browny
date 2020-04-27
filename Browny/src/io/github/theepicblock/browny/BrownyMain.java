@@ -8,6 +8,11 @@ import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.database.Database;
 import io.github.theepicblock.browny.storage.CacheManager;
 
+/**
+ * Main Browny class.
+ * @author TheEpicBlock_TEB
+ *
+ */
 public class BrownyMain extends JavaPlugin {
 	private static Database mainDB;
 	private static CacheManager cache;
@@ -43,21 +48,20 @@ public class BrownyMain extends JavaPlugin {
 		}
 	}
 
-
-
-
+	//getters
 	public static Database getMainDB() {
 		return mainDB;
 	}
 
+	/**
+	 * Gets the Cache manager. Which stores the cache and manages what should be in it.
+	 * @return
+	 */
 	public static CacheManager getCache() {
 		return cache;
 	}
 
 	public static BrownyConfig getBrownyConfig() {
 		return brownyConfig;
-	}
-	
-	//getters
-	
+	}	
 }

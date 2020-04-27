@@ -40,6 +40,10 @@ public class DataUtil {
 		return keyPair;
 	}
 	
+	/**
+	 * @param keyPair Hashmap to save
+	 * @param file File to save to
+	 */
 	public static void saveKeyPairToFile(HashMap<String,String> keyPair, File file) {
 		Properties props = new Properties();
 		keyPair.forEach((Key,Object) -> {

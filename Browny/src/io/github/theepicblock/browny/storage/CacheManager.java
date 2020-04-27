@@ -25,6 +25,9 @@ public class CacheManager {
 		loadBase();
 	}
 	
+	/**
+	 * Loads essential things which need to be in the cache
+	 */
 	public void loadBase() {
 		Worlds = database.getWorlds();
 			if (Worlds.size() > 0) {

@@ -102,7 +102,7 @@ public class TownyFlatfile extends Database {
 		return getLinesOfFile(getOrCreateFile("towns.txt"));
 	}
 	
-	//Helper functions //////////////////
+	//////////// Helper functions //////////////////
 	private File getOrCreateFile(String LocalPath) {
 		File file = new File(path, LocalPath);
 		if (!file.exists()) {

@@ -20,6 +20,7 @@ public class TownLevel{
 	
 	public TownLevel(int minimumNumberOfResidents, String namePostfix, String nameSuffix, String mayorPrefix,
 			String mayorSuffix, int townBlockLimit, double upkeepModifier, int townOutpostLimit, int townBonusLimit) {
+		
 		this.minimumNumberOfResidents = minimumNumberOfResidents;
 		this.namePostfix = namePostfix;
 		this.nameSuffix = nameSuffix;

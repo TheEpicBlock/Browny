@@ -8,6 +8,10 @@ import io.github.theepicblock.browny.storage.interfaces.CanBeDirty;
 import io.github.theepicblock.browny.storage.interfaces.DatabaseSaveable;
 import io.github.theepicblock.browny.storage.interfaces.Fixable;
 
+/**
+ * Represents a Towny town
+ * @author TheEpicBlock_TEB
+ */
 public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 	public Boolean dirty;
 	private String UUID;
