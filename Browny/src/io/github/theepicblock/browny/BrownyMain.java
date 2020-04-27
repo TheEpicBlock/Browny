@@ -38,7 +38,9 @@ public class BrownyMain extends JavaPlugin {
 	}
 	
 	public static void logSpam(Object msg) {
-		System.out.println("[Browny Spam]: " + msg.toString());
+		if (brownyConfig.SpamLogsEnabled) {
+			System.out.println("[Browny Spam]: " + msg.toString());			
+		}
 	}
 
 
