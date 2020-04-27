@@ -203,20 +203,23 @@ townDefault:
   defaultPublic: true
   # Default Open status of the town (are new towns open and joinable by anyone at creation?)
   defaultOpen: false
-  defaultTaxes: #default taxes
-    # Default amount of tax of a new town. This must be lower than the economy.daily_taxes.max_tax_percent setting.
-    tax: '0.0'
+  # Default amount of tax of a new town. This must be lower than the economy.daily_taxes.max_tax_percent setting.
+  defaultTax: 0.0
+  defaultPrices: #default prices and taxes of plots
+    # Default town price of a plot.
+    plotPrice: 0.0
+    # Default amount of plot tax of a new town.
+    plotTax: 0.0
+    # Default town price of a embassy plot.
+    commercialPlotTax: 50.0
     # Default amount of shop tax of a new town.
-    shopTax: '0.0'
+    commercialPlotTax: 0.0
+    # Default town price of a embassy plot.
+    embassyPlotPrice: 50.0
     # Default amount of embassy tax of a new town.
-    embassyTax: '0.0'
-    # Default amount for town's plottax costs.
-    plotTax: '0.0'
-    # Default status of new town's taxpercentage. True means that the default_tax is treated as a percentage instead of a fixed amount.
-    taxPercentage: 'false'
-    # A required minimum tax amount for the default_tax, will not change any towns which already have a tax set.
-    # Do not forget to set the default_tax to more than 0 or new towns will still begin with a tax of zero.
-    minimumTax: '0.0'
+    embassyPlotTax: 0.0
+    
+    
  
 ############################################################
 # +------------------------------------------------------+ #
@@ -225,14 +228,14 @@ townDefault:
 ############################################################
 townClaim:
   # maximum number of plots any single resident can own
-  maxPlotsPerResident: '100'
+  maxPlotsPerResident: 100
   # maximum number used in /town claim/unclaim # commands.
   # set to 0 to disable limiting of claim radius value check.
   # keep in mind that the default value of 4 is a radius, 
   # and it will allow claiming 9x9 (80 plots) at once.
-  maxClaimRadius: '4'
+  maxClaimRadius: 4
   # Maximum number of towns allowed on the server.
-  serverTownLimit: '3000'
+  serverTownLimit: 3000
 
   # Minimum number of plots any towns plot must be from the next town's own plots.
   # May decrease performance if set too high. It's recommended to keep this within server render distance unless plot caching mode is set to ALL
@@ -242,15 +245,15 @@ townClaim:
   minHomeBlockDistance: 5
   
   # Minimum number of plots an outpost must be from any other town's plots.
-  minOutpostDistance: '5'
+  minOutpostDistance: 5
  
   # Maximum distance between homeblocks.
   # This will force players to build close together.
-  maxTownHomeblockDistance: '0'
+  maxTownHomeblockDistance: 0
  
   # The maximum townblocks available to a town is (numResidents * ratio).
   # Setting this value to 0 will instead use the level based jump values determined in the town level config.
-  townBlockRatio: '8'
+  townBlockRatio: 8
   
 ############################################################
 # +------------------------------------------------------+ #

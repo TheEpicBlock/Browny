@@ -19,16 +19,11 @@ public class BrownyMain extends JavaPlugin {
 	
 	@Override
     public void onEnable() {
-		String path = getDataFolder().getParentFile() + File.separator + "Towny"; //temp: gets the Towny directory
-		
 		server = getServer();
 		brownyConfig = new BrownyConfig(this);
 		mainDB = brownyConfig.getDatabase();
 		cache = new CacheManager(mainDB);
 	}
-	
-	
-	
 	
 	//log helper functions
 	public static void logGeneral(Object msg) {

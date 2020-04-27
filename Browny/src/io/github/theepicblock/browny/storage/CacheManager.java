@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.github.theepicblock.browny.BrownyMain;
 import io.github.theepicblock.browny.database.Database;
+import io.github.theepicblock.browny.storage.datatypes.Town;
 import io.github.theepicblock.browny.storage.datatypes.World;
 
 /**
@@ -15,6 +16,8 @@ public class CacheManager {
 	private Database database;
 	
 	public List<World> Worlds;
+	private List<Town> Towns;
+	private List<Plot> Plots;
 	
 	public CacheManager(Database database) {
 		this.database = database;

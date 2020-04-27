@@ -2,6 +2,7 @@ package io.github.theepicblock.browny.database;
 
 import java.util.List;
 
+import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.storage.datatypes.Plot;
 import io.github.theepicblock.browny.storage.datatypes.Town;
 import io.github.theepicblock.browny.storage.datatypes.World;
@@ -13,6 +14,16 @@ import io.github.theepicblock.browny.storage.datatypes.World;
  *
  */
 public abstract class Database {
+	/**
+	 * Config used to fix any missing values
+	 */
+	BrownyConfig fixConfig;
+	/**
+	 * @param config config used to fix any missing values.
+	 */
+	Database(BrownyConfig fixConfig) {
+		this.fixConfig = fixConfig;
+	}
 	
 	/**
 	 * Specifies if this Database is Towny compatible.

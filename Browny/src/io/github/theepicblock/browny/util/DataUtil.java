@@ -1,4 +1,4 @@
-package io.github.theepicblock.browny.towny;
+package io.github.theepicblock.browny.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import io.github.theepicblock.browny.BrownyMain;
 import io.github.theepicblock.browny.storage.datatypes.World;
 
-public class TownyFileUtil {
+public class DataUtil {
 	
 	/**
 	 * Converts a file into a hashmap.
@@ -61,6 +61,18 @@ public class TownyFileUtil {
 			BrownyMain.logError("It could be that data was lost; More info:");
 			BrownyMain.logError(e);
 		}
-		
+	}
+	
+	/**
+	 * Return either the String represented as a Double. Or NaN if the value can't be read
+	 * @param v String to convert
+	 * @return the converted double.
+	 */
+	public static double parseAsDoubleOrNaN(String v) {
+		try {
+			return Double.parseDouble(v);
+		} catch (NumberFormatException e) {
+			return Double.NaN;
+		}
 	}
 }

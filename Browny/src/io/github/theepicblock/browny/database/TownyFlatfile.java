@@ -6,14 +6,14 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.github.theepicblock.browny.BrownyMain;
+import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.storage.datatypes.Plot;
 import io.github.theepicblock.browny.storage.datatypes.Town;
 import io.github.theepicblock.browny.storage.datatypes.World;
-import io.github.theepicblock.browny.towny.TownyFileUtil;
+import io.github.theepicblock.browny.util.DataUtil;
 
 /**
  * A database type that reads and writes to a Towny Flatfile.
@@ -24,7 +24,8 @@ public class TownyFlatfile extends Database {
 	private String path;
 	final String FS = File.separator;
 	
-	public TownyFlatfile(String path) {
+	public TownyFlatfile(String path, BrownyConfig fixConfig) {
+		super(fixConfig);
 		this.path = path;
 		
 		BrownyMain.logGeneral("Initializing FlatFile DataBase at path " + path);
@@ -58,18 +59,33 @@ public class TownyFlatfile extends Database {
 	
 	@Override
 	public Town getTown(String name) {
-		File townFile = getOrCreateFile("towns"+FS+name+".txt");
+		File townFile = new File(path, "towns"+FS+name+".txt");
 		if (!townFile.exists()) {
 			return null;			
 		}
 		
-		HashMap<String,String> keys = TownyFileUtil.getKeyPairFromFile(townFile);
+		HashMap<String,String> keys = DataUtil.getKeyPairFromFile(townFile);
 		
 		String townUUID = keys.get("UUID");
 		String townName = keys.get("name");
 		
-		Town town =  new Town(townUUID,townName);
-		town.TryFix(); //just in case any fields are missing
+		//parsing plot prices
+		Town.PlotPrices plotPrices = null;		
+		
+		Double plotPrice = 				DataUtil.parseAsDoubleOrNaN(keys.get("plotPrice"));
+		Double plotTax = 				DataUtil.parseAsDoubleOrNaN(keys.get("plotTax"));
+		Double commercialPlotPrice = 	DataUtil.parseAsDoubleOrNaN(keys.get("commercialPlotPrice"));		
+		Double commercialPlotTax = 		DataUtil.parseAsDoubleOrNaN(keys.get("commercialPlotTax"));		
+		Double embassyPlotPrice = 		DataUtil.parseAsDoubleOrNaN(keys.get("embassyPlotPrice"));		
+		Double embassyPlotTax = 		DataUtil.parseAsDoubleOrNaN(keys.get("embassyPlotTax"));		
+		
+		plotPrices = new Town.PlotPrices(plotPrice, plotTax, commercialPlotPrice, commercialPlotTax, embassyPlotPrice, embassyPlotTax);
+	
+		//parse taxes
+		double tax = DataUtil.parseAsDoubleOrNaN(keys.get("taxes"));
+		
+		Town town =  new Town(townUUID, townName, tax, plotPrices);
+		town.TryFix(fixConfig); //just in case any fields are missing
 		return town;
 	}
 

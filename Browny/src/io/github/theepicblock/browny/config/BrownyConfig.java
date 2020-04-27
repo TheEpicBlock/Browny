@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.theepicblock.browny.BrownyMain;
 import io.github.theepicblock.browny.database.Database;
 import io.github.theepicblock.browny.database.TownyFlatfile;
+import io.github.theepicblock.browny.storage.datatypes.Town;
 
 /**
  * manages the reading and interpretation of the Browny config file
@@ -20,10 +22,16 @@ public class BrownyConfig {
 	JavaPlugin browny;
 	FileConfiguration config;
 	
+	//Debug settings
 	public boolean DebugLogsEnabled;
 	public boolean SpamLogsEnabled;
 	
+	//town levels
 	public List<TownLevel> townLevels;
+	
+	//default towns
+	public Town.PlotPrices defaultPlotPrices;
+	
 	
 	public BrownyConfig(JavaPlugin browny) {
 		this.browny = browny;
@@ -63,6 +71,18 @@ public class BrownyConfig {
 				BrownyMain.logError(e.getMessage());
 			}
 		});
+		
+		//load default plot prices for towns
+		ConfigurationSection pricesSection = config.getConfigurationSection("townDefault.defaultPrices");
+		
+		Double plotPrice = 				pricesSection.getDouble("plotPrice");
+		Double plotTax = 				pricesSection.getDouble("plotTax");
+		Double commercialPlotPrice = 	pricesSection.getDouble("commercialPlotPrice");		
+		Double commercialPlotTax = 		pricesSection.getDouble("commercialPlotTax");		
+		Double embassyPlotPrice = 		pricesSection.getDouble("embassyPlotPrice");		
+		Double embassyPlotTax = 		pricesSection.getDouble("embassyPlotTax");
+		
+		defaultPlotPrices = new Town.PlotPrices(plotPrice, plotTax, commercialPlotPrice, commercialPlotTax, embassyPlotPrice, embassyPlotTax);
 	}
 	
 	/**
@@ -72,11 +92,11 @@ public class BrownyConfig {
 	public Database getDatabase() {
 		switch (config.getString("database.type")) {
 		case "TownyFlatfile":
-			return new TownyFlatfile(getTownyPath());
+			return new TownyFlatfile(getTownyPath(),this);
 		default:
 			BrownyMain.logError("Invalid database type in config: '"+config.getString("database.type")+"'");
 			BrownyMain.logError("Defaulting to TownyFlatfile, please edit the config file");
-			return new TownyFlatfile(getTownyPath());
+			return new TownyFlatfile(getTownyPath(),this);
 		}
 	}
 	
