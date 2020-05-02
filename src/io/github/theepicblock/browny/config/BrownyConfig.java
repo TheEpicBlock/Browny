@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.theepicblock.browny.BrownyMain;
+import io.github.theepicblock.browny.database.BrownyFlatfile;
 import io.github.theepicblock.browny.database.Database;
 import io.github.theepicblock.browny.database.TownyFlatfile;
 import io.github.theepicblock.browny.storage.datatypes.Town;
@@ -93,7 +94,9 @@ public class BrownyConfig {
 	public Database getDatabase() {
 		switch (config.getString("database.type")) {
 		case "TownyFlatfile":
-			return new TownyFlatfile(getTownyPath(),getFixInfo(), config.getInt("database.plotSize"));
+			return new TownyFlatfile(getTownyPath(), getFixInfo(), config.getInt("database.plotSize"));
+		case "BrownyFlatfile":
+			return new BrownyFlatfile(getBrownyPath(), getFixInfo(), config.getInt("database.plotSize"));
 		default:
 			BrownyMain.logError("Invalid database type in config: '"+config.getString("database.type")+"'");
 			BrownyMain.logError("Defaulting to TownyFlatfile, please edit the config file");
@@ -101,9 +104,6 @@ public class BrownyConfig {
 		}
 	}
 	
-	public FixInfo getFixInfo() {
-		return new FixInfo(this);
-	}
 	
 	/**
 	 * Get's the TownLevel corresponding to the amount of residents in a town
@@ -117,6 +117,14 @@ public class BrownyConfig {
 			}
 		}
 		return null; //something needs to go very wrong for this to happen
+	}
+	
+	public FixInfo getFixInfo() {
+		return new FixInfo(this);
+	}
+
+	private String getBrownyPath() {
+		return browny.getDataFolder() + File.separator + "data"; //gets the Browny/data directory
 	}
 	
 	private String getTownyPath() {

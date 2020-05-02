@@ -11,9 +11,9 @@
 #Configures the database, this is where Browny loads all the towns, plots, nations, etc from
 #Note that, unlike Towny, Browny doesn't load all data at startup (by default). Instead, it loads them when needed.
 database:
-    #Can be: TownyFlatfile
+    #Can be: TownyFlatfile, BrownyFlatfile
     #Types prefixed with Towny mean that they use a Towny compatible format.
-    type: 'TownyFlatfile'
+    type: 'BrownyFlatfile'
     #Controls when things are loaded into memory. Valid values are:
     #NEEDED: caches only when needed, then unloads them.
     #PERM: caches once it's needed, then keeps them in cache permanently. This is recommended.
