@@ -2,13 +2,13 @@ package io.github.theepicblock.browny.database;
 
 import java.util.List;
 
-import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.storage.datatypes.Plot;
 import io.github.theepicblock.browny.storage.datatypes.Town;
 import io.github.theepicblock.browny.storage.datatypes.World;
+import io.github.theepicblock.browny.util.FixInfo;
 
 /**
- * Class for managing the reading and writing of towns, nations, plots, etc to a file or other type of database
+ * Class for managing the reading and writing of objects to a file/other storage location.
  * Should be extended to accommodate for different types of databases.
  * @author TheEpicBlock_TEB
  *
@@ -17,14 +17,15 @@ public abstract class Database {
 	/**
 	 * Config used to fix any missing values
 	 */
-	BrownyConfig fixConfig;
+	FixInfo fixInfo;
 	int plotSize;
 	
 	/**
 	 * @param config config used to fix any missing values.
+	 * @param plotSize the size of the plots in this database
 	 */
-	Database(BrownyConfig fixConfig, int plotSize) {
-		this.fixConfig = fixConfig;
+	Database(FixInfo fixInfo, int plotSize) {
+		this.fixInfo = fixInfo;
 		this.plotSize = plotSize;
 	}
 	

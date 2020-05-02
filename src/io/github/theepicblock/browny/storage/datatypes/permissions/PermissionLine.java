@@ -1,4 +1,4 @@
-package io.github.theepicblock.browny.storage.datatypes;
+package io.github.theepicblock.browny.storage.datatypes.permissions;
 
 import io.github.theepicblock.browny.storage.interfaces.CanBeDirty;
 

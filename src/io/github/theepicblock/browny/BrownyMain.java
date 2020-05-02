@@ -9,7 +9,7 @@ import io.github.theepicblock.browny.database.Database;
 import io.github.theepicblock.browny.storage.CacheManager;
 
 /**
- * Main Browny class.
+ * Main Browny class. Has static references to a few things
  * @author TheEpicBlock_TEB
  *
  */

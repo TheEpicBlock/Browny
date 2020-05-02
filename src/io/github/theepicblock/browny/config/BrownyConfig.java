@@ -13,6 +13,7 @@ import io.github.theepicblock.browny.BrownyMain;
 import io.github.theepicblock.browny.database.Database;
 import io.github.theepicblock.browny.database.TownyFlatfile;
 import io.github.theepicblock.browny.storage.datatypes.Town;
+import io.github.theepicblock.browny.util.FixInfo;
 
 /**
  * manages the reading and interpretation of the Browny config file
@@ -92,12 +93,16 @@ public class BrownyConfig {
 	public Database getDatabase() {
 		switch (config.getString("database.type")) {
 		case "TownyFlatfile":
-			return new TownyFlatfile(getTownyPath(),this, config.getInt("database.plotSize"));
+			return new TownyFlatfile(getTownyPath(),getFixInfo(), config.getInt("database.plotSize"));
 		default:
 			BrownyMain.logError("Invalid database type in config: '"+config.getString("database.type")+"'");
 			BrownyMain.logError("Defaulting to TownyFlatfile, please edit the config file");
-			return new TownyFlatfile(getTownyPath(),this, config.getInt("database.plotSize"));
+			return new TownyFlatfile(getTownyPath(),getFixInfo(), config.getInt("database.plotSize"));
 		}
+	}
+	
+	public FixInfo getFixInfo() {
+		return new FixInfo(this);
 	}
 	
 	/**

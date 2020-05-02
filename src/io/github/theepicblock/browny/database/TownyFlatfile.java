@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import io.github.theepicblock.browny.BrownyMain;
-import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.storage.datatypes.Plot;
 import io.github.theepicblock.browny.storage.datatypes.Town;
 import io.github.theepicblock.browny.storage.datatypes.World;
 import io.github.theepicblock.browny.util.DataUtil;
+import io.github.theepicblock.browny.util.FixInfo;
 
 /**
  * A database type that reads and writes to a Towny Flatfile.
@@ -24,8 +24,8 @@ public class TownyFlatfile extends Database {
 	private String path;
 	final String FS = File.separator;
 	
-	public TownyFlatfile(String path, BrownyConfig fixConfig, int plotSize) {
-		super(fixConfig, plotSize);
+	public TownyFlatfile(String path, FixInfo fixInfo, int plotSize) {
+		super(fixInfo, plotSize);
 		this.path = path;
 		
 		BrownyMain.logGeneral("Initializing FlatFile DataBase at path " + path);
@@ -85,7 +85,7 @@ public class TownyFlatfile extends Database {
 		double tax = DataUtil.parseAsDoubleOrNaN(keys.get("taxes"));
 		
 		Town town =  new Town(townUUID, townName, tax, plotPrices);
-		town.TryFix(fixConfig); //just in case any fields are missing
+		town.TryFix(fixInfo); //just in case any fields are missing
 		return town;
 	}
 

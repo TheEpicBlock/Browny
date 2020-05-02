@@ -1,12 +1,12 @@
 package io.github.theepicblock.browny.storage.datatypes;
 
 import io.github.theepicblock.browny.BrownyMain;
-import io.github.theepicblock.browny.config.BrownyConfig;
 import io.github.theepicblock.browny.config.TownLevel;
 import io.github.theepicblock.browny.database.Database;
 import io.github.theepicblock.browny.storage.interfaces.CanBeDirty;
 import io.github.theepicblock.browny.storage.interfaces.DatabaseSaveable;
 import io.github.theepicblock.browny.storage.interfaces.Fixable;
+import io.github.theepicblock.browny.util.FixInfo;
 
 /**
  * Represents a Towny town
@@ -80,7 +80,7 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 	}
 
 	@Override
-	public void TryFix(BrownyConfig config) {
+	public void TryFix(FixInfo fixInfo) {
 		if (UUID == null) {
 			UUID = java.util.UUID.randomUUID().toString();
 			dirty = true;
@@ -93,7 +93,9 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 		
 		if (plotPrices == null) {
 			plotPrices = new PlotPrices(Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN);
+			dirty = true;
 		}
+		plotPrices.TryFix(fixInfo);
 		
 		// TODO add the rest
 	}
@@ -135,31 +137,31 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 			this.embassyPlotTax = embassyPlotTax;
 		}
 
-		@Override
-		public void TryFix(BrownyConfig config) {
+	
+		public void TryFix(FixInfo fixInfo) {
 			//Goes thru all values in this class and checks if they are NaN, if so, it'll replace them with the default value defined in the config
 			if (Double.isNaN(plotPrice)) {
-				plotPrice = config.defaultPlotPrices.plotPrice;
+				plotPrice = fixInfo.getConfig().defaultPlotPrices.plotPrice;
 				dirty = true;
 			}
 			if (Double.isNaN(plotTax)) {
-				plotTax = config.defaultPlotPrices.plotTax;
+				plotTax = fixInfo.getConfig().defaultPlotPrices.plotTax;
 				dirty = true;
 			}
 			if (Double.isNaN(commercialPlotPrice)) {
-				commercialPlotPrice = config.defaultPlotPrices.commercialPlotPrice;
+				commercialPlotPrice = fixInfo.getConfig().defaultPlotPrices.commercialPlotPrice;
 				dirty = true;
 			}
 			if (Double.isNaN(commercialPlotTax)) {
-				commercialPlotTax = config.defaultPlotPrices.commercialPlotTax;
+				commercialPlotTax = fixInfo.getConfig().defaultPlotPrices.commercialPlotTax;
 				dirty = true;
 			}
 			if (Double.isNaN(embassyPlotPrice)) {
-				embassyPlotPrice = config.defaultPlotPrices.embassyPlotPrice;
+				embassyPlotPrice = fixInfo.getConfig().defaultPlotPrices.embassyPlotPrice;
 				dirty = true;
 			}
 			if (Double.isNaN(plotPrice)) {
-				embassyPlotTax = config.defaultPlotPrices.embassyPlotTax;
+				embassyPlotTax = fixInfo.getConfig().defaultPlotPrices.embassyPlotTax;
 				dirty = true;
 			}
 		}
