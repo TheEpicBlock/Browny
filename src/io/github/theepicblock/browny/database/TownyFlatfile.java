@@ -40,8 +40,13 @@ public class TownyFlatfile extends Database {
 
 	@Override
 	public Plot getPlot(int x, int y, World world) {
+		// TODO check if towny uses XY or YX
+		File plotFile = new File(path, "townblocks"+FS+world+FS+  x+"_"+y+"_"+this.plotSize+".data"); //yes, towny appends the plotsize to the filename of every plot
+		if (!plotFile.exists()) {
+			return null; //there is no plot info here			
+		}
 		
-		return null;
+		return new Plot();
 	}
 
 	@Override

@@ -37,11 +37,11 @@ public abstract class Database {
 	public abstract Boolean isTownyCompat();
 	
 	/**
-	 * Gets a plot at the specified coordinates
+	 * Gets a plot at the specified coordinates. Will return null if no plot info is present.
 	 * @param x
 	 * @param y
-	 * @param world
-	 * @return the plot at the given plot coordinates
+	 * @param world the world to look in
+	 * @return the plot at the given plot coordinates or null
 	 */
 	public abstract Plot getPlot(int x, int y, World world);
 	
