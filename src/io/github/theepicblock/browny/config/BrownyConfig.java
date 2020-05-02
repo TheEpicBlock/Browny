@@ -57,7 +57,7 @@ public class BrownyConfig {
 				String mayorSuffix 				= (String)level.get("mayorSuffix");
 				
 				int townBlockLimit 				= (Integer)level.get("townBlockLimit");
-				double upkeepModifier 			= (double)level.get("upkeepModifier");
+				double upkeepModifier 			= (Double)level.get("upkeepModifier");
 				int townOutpostLimit 			= (Integer)level.get("townOutpostLimit");
 				int townBonusLimit 				= (Integer)level.get("townBonusLimit");
 				
