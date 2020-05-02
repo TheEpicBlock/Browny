@@ -13,7 +13,7 @@ import io.github.theepicblock.browny.storage.interfaces.Fixable;
  * @author TheEpicBlock_TEB
  */
 public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
-	public Boolean dirty;
+	public boolean dirty;
 	private String UUID;
 	private String name;
 	private double taxes;
@@ -47,14 +47,9 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 		return 0;
 	}
 	
-	//Getters and setters
+	//Getters
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.dirty = true;
-		this.name = name;
 	}
 	
 	public PlotPrices getPlotPrices() {
@@ -65,6 +60,25 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 		return UUID;
 	}
 	
+	public double getTaxes() {
+		return taxes;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+		dirty = true;
+	}
+
+	public void setTaxes(double taxes) {
+		this.taxes = taxes;
+		dirty = true;
+	}
+
+	public void setPlotPrices(PlotPrices plotPrices) {
+		this.plotPrices = plotPrices;
+		dirty = true;
+	}
+
 	@Override
 	public void TryFix(BrownyConfig config) {
 		if (UUID == null) {
@@ -81,15 +95,16 @@ public class Town implements DatabaseSaveable, Fixable, CanBeDirty{
 			plotPrices = new PlotPrices(Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN);
 		}
 		
+		// TODO add the rest
 	}
 	
 	@Override
-	public Boolean isDirty() {
+	public boolean isDirty() {
 		return dirty || this.plotPrices.dirty;
 	}
 
 	@Override
-	public void markDirty(Boolean v) {
+	public void markDirty(boolean v) {
 		this.dirty = v;
 		this.plotPrices.dirty = v;
 	}

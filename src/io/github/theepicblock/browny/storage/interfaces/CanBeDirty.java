@@ -5,7 +5,7 @@ package io.github.theepicblock.browny.storage.interfaces;
  * @author TheEpicBlock_TEB
  */
 public interface CanBeDirty {
-	public Boolean isDirty();
+	public boolean isDirty();
 	
-	public void markDirty(Boolean v);
+	public void markDirty(boolean v);
 }
