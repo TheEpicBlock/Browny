@@ -1,5 +1,6 @@
 package io.github.theepicblock.browny.database;
 
+import java.util.Iterator;
 import java.util.List;
 
 import io.github.theepicblock.browny.storage.datatypes.Plot;
@@ -51,7 +52,17 @@ public abstract class Database {
 	 * @param name
 	 * @return the town found
 	 */
-	public abstract Town getTown(String name);
+	public abstract Town getTownByName(String name);
+	
+	/**
+	 * Gets a town by it's UUID.
+	 * Only when working with Towny formats it is preferred to use TownName.
+	 * @param name
+	 * @return the town found
+	 */
+	public abstract Town getTownByUUID(String uuid);
+	
+	public abstract Iterator<Town> getTownIterator();
 	
 	/**
 	 * Saves a town to disk

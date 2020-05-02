@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -46,7 +47,15 @@ public class TownyFlatfile extends Database {
 			return null; //there is no plot info here			
 		}
 		
-		return new Plot();
+		HashMap<String,String> keys = DataUtil.getKeyPairFromFile(plotFile);
+
+		String name = keys.get("name");
+		double price = DataUtil.parseAsDoubleOrNaN(keys.get("price"));
+		String townName = keys.get("town");
+		
+		String townUUID = this.getTownByName(townName).getUUID();
+		
+		return new Plot(name, price, townUUID);
 	}
 
 	@Override
@@ -63,7 +72,7 @@ public class TownyFlatfile extends Database {
 	}
 	
 	@Override
-	public Town getTown(String name) {
+	public Town getTownByName(String name) {
 		File townFile = new File(path, "towns"+FS+name+".txt");
 		if (!townFile.exists()) {
 			return null;			
@@ -92,6 +101,54 @@ public class TownyFlatfile extends Database {
 		Town town =  new Town(townUUID, townName, tax, plotPrices);
 		town.TryFix(fixInfo); //just in case any fields are missing
 		return town;
+	}
+	
+	public Town getTownByUUID(String uuid) {
+		Iterator<Town> iterator = this.getTownIterator();
+		
+		while (iterator.hasNext()) {
+			Town town = iterator.next();
+			if (town.getUUID() == uuid) {
+				return town;
+			}
+		}
+		
+		return null; //no town found with that uuid
+	}
+	
+	public Iterator<Town> getTownIterator() {
+		return new FlatfileTownIterator(this);
+	}
+	
+	/**
+	 * An iterator that iterates over files.
+	 * Caches the town names but loads them only when needed.
+	 * @author TheEpicBlock_TEB
+	 */
+	public class FlatfileTownIterator implements Iterator<Town>{
+		Database db;
+		List<String> townNames;
+		int index;
+		int listSize;
+		
+		public FlatfileTownIterator(Database db) {
+			this.db = db;
+			this.townNames = db.getAllTownNames();
+			this.index = 0;
+			this.listSize = townNames.size();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return index + 1 >= listSize; //not tested yet, I hope this is correct
+		}
+
+		@Override
+		public Town next() {
+			String townName = townNames.get(index);
+			index++;
+			return db.getTownByName(townName);
+		}
 	}
 
 	@Override

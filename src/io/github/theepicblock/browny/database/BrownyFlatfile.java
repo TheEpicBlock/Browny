@@ -12,5 +12,10 @@ public class BrownyFlatfile extends TownyFlatfile {
 	public BrownyFlatfile(String path, FixInfo fixInfo, int plotSize) {
 		super(path, fixInfo, plotSize);
 	}
-
+	
+	//database overridden functions, please make sure this is in the same order as in the Database class ////////////
+	@Override
+	public Boolean isTownyCompat() {
+		return false;
+	}
 }
